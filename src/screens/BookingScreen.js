@@ -19,7 +19,7 @@ const BookingScreen = ({ route, navigation }) => {
   const { hotel } = route.params;
   
   const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(new Date(Date.now() + 86400000)); // Tomorrow
+  const [checkOutDate, setCheckOutDate] = useState(new Date(Date.now() + 86400000)); 
   const [showCheckInPicker, setShowCheckInPicker] = useState(false);
   const [showCheckOutPicker, setShowCheckOutPicker] = useState(false);
   const [numberOfRooms, setNumberOfRooms] = useState(1);
@@ -54,8 +54,7 @@ const BookingScreen = ({ route, navigation }) => {
   const onCheckInChange = (event, selectedDate) => {
     setShowCheckInPicker(false);
     if (selectedDate) {
-      setCheckInDate(selectedDate);
-      // Auto-adjust checkout date if it becomes invalid
+      setCheckInDate(selectedDate)
       if (selectedDate >= checkOutDate) {
         const newCheckOut = new Date(selectedDate);
         newCheckOut.setDate(newCheckOut.getDate() + 1);
@@ -117,7 +116,6 @@ const BookingScreen = ({ route, navigation }) => {
         hotelName: hotel.name,
         hotelLocation: hotel.location,
         hotelPrice: hotel.price,
-        // hotelImage: hotel.image,
         userId: user.uid,
         userEmail: user.email,
         checkInDate: checkInDate.toISOString(),
@@ -132,12 +130,11 @@ const BookingScreen = ({ route, navigation }) => {
         bookingReference: `BK${Date.now()}${Math.random().toString(36).substr(2, 5)}`.toUpperCase()
       };
 
-      // Save to Firebase
+      
       const docRef = await addDoc(collection(db, 'bookings'), bookingData);
       
       setIsLoading(false);
-      
-      // Navigate to confirmation screen
+ 
       navigation.navigate('BookingConfirmation', { 
         booking: { ...bookingData, id: docRef.id }
       });
@@ -165,18 +162,18 @@ const BookingScreen = ({ route, navigation }) => {
       <StatusBar barStyle="dark-content" />
       
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* Header */}
+       
         <View style={styles.header}>
           <Text style={styles.title}>Complete Your Booking</Text>
           <Text style={styles.hotelName}>{hotel.name}</Text>
           <Text style={styles.hotelLocation}>{hotel.location}</Text>
         </View>
 
-        {/* Booking Details */}
+        
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Booking Details</Text>
           
-          {/* Check-in Date */}
+      
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Check-in Date</Text>
             <TouchableOpacity 
@@ -196,7 +193,7 @@ const BookingScreen = ({ route, navigation }) => {
             )}
           </View>
 
-          {/* Check-out Date */}
+         
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Check-out Date</Text>
             <TouchableOpacity 
@@ -216,7 +213,7 @@ const BookingScreen = ({ route, navigation }) => {
             )}
           </View>
 
-          {/* Number of Rooms */}
+          
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Number of Rooms</Text>
             <View style={styles.counterContainer}>
@@ -237,7 +234,7 @@ const BookingScreen = ({ route, navigation }) => {
             </View>
           </View>
 
-          {/* Number of Guests */}
+          
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Number of Guests</Text>
             <View style={styles.counterContainer}>
@@ -258,7 +255,7 @@ const BookingScreen = ({ route, navigation }) => {
             </View>
           </View>
 
-          {/* Special Requests */}
+          
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Special Requests (Optional)</Text>
             <TextInput
@@ -273,7 +270,6 @@ const BookingScreen = ({ route, navigation }) => {
           </View>
         </View>
 
-        {/* Price Breakdown */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Price Breakdown</Text>
           <View style={styles.priceRow}>
@@ -286,7 +282,7 @@ const BookingScreen = ({ route, navigation }) => {
           </View>
         </View>
 
-        {/* Book Button */}
+        
         <TouchableOpacity 
           style={[styles.bookButton, isLoading && styles.bookButtonDisabled]}
           onPress={handleBooking}

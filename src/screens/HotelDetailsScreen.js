@@ -40,7 +40,7 @@ const HotelDetailsScreen = ({ route, navigation }) => {
 
   const user = auth.currentUser;
 
-  // Load reviews from Firebase
+  
   useEffect(() => {
     if (!hotel?.id) return;
 
@@ -61,7 +61,7 @@ const HotelDetailsScreen = ({ route, navigation }) => {
           const reviewData = { id: doc.id, ...doc.data() };
           reviewsData.push(reviewData);
           
-          // Check if current user has already reviewed
+          
           if (user && reviewData.userId === user.uid) {
             userHasReviewed = true;
           }
@@ -78,7 +78,6 @@ const HotelDetailsScreen = ({ route, navigation }) => {
       }
     );
 
-    // Cleanup subscription
     return unsubscribe;
   }, [hotel?.id, user]);
 
@@ -95,7 +94,7 @@ const HotelDetailsScreen = ({ route, navigation }) => {
   };
 
   const handleAddReview = () => {
-    // Check if user is logged in
+  
     if (!user) {
       Alert.alert(
         'Sign In Required',
@@ -108,7 +107,7 @@ const HotelDetailsScreen = ({ route, navigation }) => {
       return;
     }
 
-    // Check if user already reviewed
+
     if (hasUserReviewed) {
       Alert.alert('Already Reviewed', 'You have already submitted a review for this hotel.');
       return;
@@ -144,10 +143,10 @@ const HotelDetailsScreen = ({ route, navigation }) => {
         updatedAt: serverTimestamp()
       };
 
-      // Save review to Firebase
+      
       await addDoc(collection(db, 'reviews'), reviewData);
       
-      // Success - modal will close and real-time listener will update the list
+
       setShowReviewModal(false);
       setNewReview({ rating: 0, comment: '' });
       setTempRating(0);
@@ -187,7 +186,7 @@ const HotelDetailsScreen = ({ route, navigation }) => {
       </View>
       <Text style={styles.reviewComment}>{item.comment}</Text>
       
-      {/* Show "Your Review" badge if it's the current user's review */}
+      
       {user && item.userId === user.uid && (
         <View style={styles.userReviewBadge}>
           <Text style={styles.userReviewBadgeText}>Your Review</Text>
@@ -217,7 +216,6 @@ const HotelDetailsScreen = ({ route, navigation }) => {
     return <View style={styles.ratingSelector}>{stars}</View>;
   };
 
-  // Calculate average rating
   const averageRating = reviews.length > 0 
     ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
     : 0;
@@ -227,10 +225,7 @@ const HotelDetailsScreen = ({ route, navigation }) => {
       <StatusBar barStyle="light-content" />
       
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-      
-        {/* <Image source={hotel.image} style={styles.hotelImage} /> */}
-        
-       
+    
         <TouchableOpacity 
           style={styles.backButton}
           onPress={() => navigation.goBack()}
@@ -350,7 +345,7 @@ const HotelDetailsScreen = ({ route, navigation }) => {
             )}
           </View>
 
-          {/* Book Button */}
+         
           <TouchableOpacity 
             style={styles.bookButton}
             onPress={() => navigation.navigate('Booking', { hotel })}
@@ -360,7 +355,7 @@ const HotelDetailsScreen = ({ route, navigation }) => {
         </View>
       </ScrollView>
 
-      {/* Add Review Modal */}
+     
       <Modal
         visible={showReviewModal}
         animationType="slide"

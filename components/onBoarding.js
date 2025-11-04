@@ -42,7 +42,7 @@ const OnboardingScreen = ({ item, currentIndex, scrollX, onGetStarted }) => {
     <View style={[styles.screen, { backgroundColor: item.backgroundColor }]}>
       <View style={styles.content}>
         <Image 
-          source={item.image} // CHANGED: Remove { uri: ... } and use item.image directly
+          source={item.image} 
           style={styles.image}
           resizeMode="cover"
         />
@@ -247,4 +247,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
 });
+
+
 

@@ -23,5 +23,15 @@ i have installed the Following dependancies:
     "@react-native-community/slider": "5.0.1"
 
 
-to run my project, simple run the command: npm install 
+-to run my project, simple run the command: npm install 
+-scan the qrcode and vwalla Onboarding for firstime users,
+-login/signup
+-Explore screen which is an equivallence of a homescreen
+-click on a hotel tab
+-you will be taken to a hotel details screen
+-add bookings
+-and be happy
+-rate our service although i know its bad because of the pictures
+and rate the developers and what they should fix next time.
 
+thank you

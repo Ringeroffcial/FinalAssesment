@@ -58,7 +58,7 @@ const ProfileScreen = ({ navigation }) => {
         userBookings.push({ id: doc.id, ...doc.data() });
       });
       
-      // Sort by creation date (newest first)
+      
       userBookings.sort((a, b) => new Date(b.createdAt?.toDate()) - new Date(a.createdAt?.toDate()));
       
       setBookings(userBookings);
@@ -80,7 +80,7 @@ const ProfileScreen = ({ navigation }) => {
           onPress: async () => {
             try {
               await signOut(auth);
-              // Navigation will be handled by auth state listener in App.js
+              
             } catch (error) {
               console.error('Logout error:', error);
               Alert.alert('Error', 'Failed to logout. Please try again.');
@@ -108,19 +108,19 @@ const ProfileScreen = ({ navigation }) => {
 
     setIsUpdating(true);
     try {
-      // Update display name
+
       if (editForm.displayName !== user.displayName) {
         await updateProfile(auth.currentUser, {
           displayName: editForm.displayName.trim()
         });
       }
 
-      // Update email if changed
+      
       if (editForm.email !== user.email) {
         await updateEmail(auth.currentUser, editForm.email.trim());
       }
 
-      // Update user document in Firestore if you have one
+      
       const userDocRef = doc(db, 'users', user.uid);
       await updateDoc(userDocRef, {
         displayName: editForm.displayName.trim(),
@@ -185,7 +185,7 @@ const ProfileScreen = ({ navigation }) => {
         photoURL: downloadURL
       });
 
-      // Update user document in Firestore
+      
       const userDocRef = doc(db, 'users', user.uid);
       await updateDoc(userDocRef, {
         photoURL: downloadURL,
@@ -247,12 +247,12 @@ const ProfileScreen = ({ navigation }) => {
       <StatusBar barStyle="dark-content" />
       
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* Header */}
+        
         <View style={styles.header}>
           <Text style={styles.title}>My Profile</Text>
         </View>
 
-        {/* User Info Card */}
+      
         <View style={styles.userCard}>
           <View style={styles.avatarSection}>
             <TouchableOpacity onPress={pickImage}>
@@ -296,7 +296,7 @@ const ProfileScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {/* Bookings Section */}
+        
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>My Bookings</Text>
           
@@ -324,7 +324,6 @@ const ProfileScreen = ({ navigation }) => {
           )}
         </View>
 
-        {/* Logout Button */}
         <TouchableOpacity 
           style={styles.logoutButton}
           onPress={handleLogout}
@@ -333,7 +332,7 @@ const ProfileScreen = ({ navigation }) => {
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Edit Profile Modal */}
+      
       <Modal
         visible={showEditModal}
         animationType="slide"
